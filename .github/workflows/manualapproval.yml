@@ -1,4 +1,4 @@
-name: Build, Tag, Push, and Run the Docker container.
+name: Build, Tag, Push, and Run the Docker container..
 
 on:
   push:
