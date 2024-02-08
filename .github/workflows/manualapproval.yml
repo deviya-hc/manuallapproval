@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Manual approval
-        if: github.ref == 'refs/heads/master' && github.event_name == 'push'  # Only trigger on main branch push
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'  # Only trigger on main branch push
         uses: actions/github-script@v5
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -39,7 +39,7 @@ jobs:
                     owner: 'jeebanj',
                     repo: 'manualapproval.yml',
                     workflow_id: workflow.id,
-                    branch: 'master',
+                    branch: 'main',
                     status: 'queued'
                });
               } else {
