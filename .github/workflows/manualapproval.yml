@@ -3,4 +3,4 @@ name: Build, Tag, Push, and Run the Docker container..
 on:
   push:
     branches:
-      - master
+      - main
