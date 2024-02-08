@@ -21,7 +21,7 @@ jobs:
           script: |
             github.repos.createDispatchEvent({
               owner: 'jeebanj',
-              repo: 'sample-python-Test',
+              repo: 'manualapproval.yml',
               event_type: 'approve-deployment',
               client_payload: {
                 message: 'Please approve the deployment.'
@@ -31,14 +31,14 @@ jobs:
                console.log('Waiting for approval...');
                return github.actions.listRepoWorkflows({
                  owner: 'jeebanj',
-                 repo: 'sample-python-Test'
+                 repo: 'manualapproval.yml'
                 });
               }).then(({ data: workflows }) => {
                 const workflow = workflows.workflows.find(workflow => workflow.name === 'dynamicfileupdate.yml');
                 if (workflow) {
                   return github.actions.listWorkflowRuns({
                     owner: 'jeebanj',
-                    repo: 'sample-python-Test',
+                    repo: 'manualapproval.yml',
                     workflow_id: workflow.id,
                     branch: 'master',
                     status: 'queued'
