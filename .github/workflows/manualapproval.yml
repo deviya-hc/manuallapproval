@@ -1,4 +1,4 @@
-name: Pull request approval
+name: Pull request approval test
 
 on:
   pull_request:
