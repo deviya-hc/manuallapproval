@@ -2,7 +2,7 @@ name: Pull request approval test ...vbbbbb33
 
 on:
   pull_request:
-    types: [merged, review_requested]
+    types: [opened, reopened]
 
 jobs:
   approval:
