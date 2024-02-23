@@ -18,7 +18,42 @@ jobs:
     needs: approval
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+      
       - name: Check approval status
         run: echo ${{ needs.approval.outputs.approval_status }}
+      
+      - name: Read current version
+        run: |
+          version=$(cat "./version_counter.txt" 2>/dev/null) || version=0
+          echo "Current version: $version"
+          version=$((version + 1))
+          echo "New version: $version"
+          echo "$version" > "./version_counter.txt"
+          echo "VERSION=$version" >> $GITHUB_ENV
+          echo "Version to be used: $VERSION" 
+          git config --global user.email "j.satapathy28@gmail.com"
+          git config --global user.name "jeebanj"
+          git add version_counter.txt
+          git commit -m "updating version"
+          git push origin master
+
+      #- name: Set GitHub environment variable
+        #run: |
+          #cat version_counter.txt 
+          #echo "VERSION=$version" >> $GITHUB_ENV
+          #echo  $VERSION
+
+      #- name: Print updated version
+        #run: |
+          #echo "Version to be used: $VERSION"
+          #version=$(cat "./version_counter.txt")
+          #echo $version
+
+      - name: Example usage of updated version (optional)
+        run: |
+          # Simulate your pipeline script's use of the version number
+          echo "Version used in this step: $GITHUB_ENV::VERSION"
+
       # Add your build steps here
       # Only run if approval_status is "approved"
