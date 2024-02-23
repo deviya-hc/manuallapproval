@@ -1,28 +1,24 @@
-name: CI/CD Pipeline
+name: Pull request approval
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:  # Add manual trigger
+  pull_request:
+    types: [opened, reopened]
 
 jobs:
-  build-and-deploy:
+  approval:
     runs-on: ubuntu-latest
     steps:
-      - name: Manual Approval
-        if: github.event_name == 'workflow_dispatch'  # Only run on manual trigger
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "Manually triggering workflow"
-
-      - name: Build
+      - name: Request approval
         run: |
-          # Your build commands here
-          echo "Building..."
+          # Use GitHub API or custom action to request approval
+          # Based on your approval criteria (e.g., comments, labels)
+          # Set an output variable `approval_status` (e.g., approved, rejected)
 
-      - name: Deploy
-        if: github.event_name != 'workflow_dispatch'  # Only run if not manually triggered
-        run: |
-          # Your deployment commands here
-          echo "Deploying..."
+  build:
+    needs: approval
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check approval status
+        run: echo ${{ needs.approval.outputs.approval_status }}
+      # Add your build steps here
+      # Only run if approval_status is "approved"
