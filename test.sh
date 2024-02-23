@@ -11,3 +11,4 @@ version=$(cat "$counter_file" 2>/dev/null) || version=0
 
 # Update the version counter file
 echo "$version" > "$counter_file"
+fghjkll
