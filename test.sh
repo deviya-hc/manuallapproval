@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash...
 
 # Path to the file storing the version counter
 counter_file="version_counter.txt"
